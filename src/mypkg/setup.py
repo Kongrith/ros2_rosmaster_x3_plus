@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+			"first_publisher = mypkg.first_node:main",
+			"twist_publisher = mypkg.twist_pub:main",
         ],
     },
 )
