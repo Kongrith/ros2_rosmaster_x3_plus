@@ -22,6 +22,8 @@ setup(
         'console_scripts': [
 			"first_publisher = mypkg.first_node:main",
 			"twist_publisher = mypkg.twist_pub:main",
+			"first_subscription = mypkg.first_sub:main",
+			"twist_subscription = mypkg.twist_sub:main",
         ],
     },
 )
