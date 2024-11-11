@@ -14,7 +14,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
 
 		# เพิ่มตรงนี้ สำหรับการเพิ่ม launch file
-		(os.path.join('share', package_name), glob("launch/*.launch.py")),
+		(os.path.join('share', package_name, "mypkg"), glob("../launch/*.launch.py")),
+		(os.path.join('share', package_name, "config"), glob("../config/*.yaml")),
+
 		# Include all launch files.
 		# (os.path.join('share', package_name, 'launch'), glob(os.path.join(os.getcwd(), '*.launch.py'))),
     ],
@@ -32,6 +34,9 @@ setup(
 			"first_subscription = mypkg.first_sub:main",
 			"twist_subscription = mypkg.twist_sub:main",
 			"turtle_avoidance = mypkg.turtle_control:main",
+			"first_param = mypkg.first_param:main",
+			"turtle_service_server = mypkg.turtle_service_server:main",
+			"turtle_service_client = mypkg.turtle_service_client:main",
         ],
     },
 )
