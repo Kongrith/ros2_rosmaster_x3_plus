@@ -16,6 +16,10 @@ setup(
 		# เพิ่มตรงนี้ สำหรับการเพิ่ม launch file
 		(os.path.join('share', package_name, "mypkg"), glob("../launch/*.launch.py")),
 		(os.path.join('share', package_name, "config"), glob("../config/*.yaml")),
+		(os.path.join('share', package_name, "launch"), glob("launch/*.launch.py")),
+		(os.path.join('share', package_name, "config"), glob("../config/*.lua")),
+		(os.path.join('share', package_name, "maps"), glob("../maps/*.yaml")),
+		(os.path.join('share', package_name, "maps"), glob("../maps/*.pgm")),
 
 		# Include all launch files.
 		# (os.path.join('share', package_name, 'launch'), glob(os.path.join(os.getcwd(), '*.launch.py'))),
@@ -29,14 +33,15 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-			"first_publisher = mypkg.first_node:main",
-			"twist_publisher = mypkg.twist_pub:main",
-			"first_subscription = mypkg.first_sub:main",
-			"twist_subscription = mypkg.twist_sub:main",
-			"turtle_avoidance = mypkg.turtle_control:main",
-			"first_param = mypkg.first_param:main",
-			"turtle_service_server = mypkg.turtle_service_server:main",
-			"turtle_service_client = mypkg.turtle_service_client:main",
+			# "first_publisher = mypkg.first_node:main",
+			# "twist_publisher = mypkg.twist_pub:main",
+			# "first_subscription = mypkg.first_sub:main",
+			# "twist_subscription = mypkg.twist_sub:main",
+			# "turtle_avoidance = mypkg.turtle_control:main",
+			# "first_param = mypkg.first_param:main",
+			# "turtle_service_server = mypkg.turtle_service_server:main",
+			# "turtle_service_client = mypkg.turtle_service_client:main",
+			"robot_core = mypkg.robot_core:main",
         ],
     },
 )
