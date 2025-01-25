@@ -19,11 +19,12 @@ class Robot(Node):
 		self.rover.create_receive_threading()
 
 		# robot parameters
-		self.wheel_radius = 0.251327								# 0.06096 m
-		self.wheelbase = 0.25										# 0.225m
-		# self.max_rpm = 60.0 #rpm
-		self.PPI = 2464												# PPR: Pulse per Revolution
-		self.DPT = (2 * math.pi * self.wheel_radius) / self.PPI  	# Distance Per Tick
+		self.wheel_radius = 0.251327
+		self.wheel_separation = 0.20				# Distance between the two wheels on the same axis (meters).
+		self.wheel_separation_length = 0.21			# Distance between the front and rear axis (meters).
+		self.wheelbase = 0.25
+		self.PPR = 2464												# PPR: Pulse per Revolution
+		self.DPT = (2 * math.pi * self.wheel_radius) / self.PPR  	# DPT: Distance Per Tick (m/tick)
 
 		# create subcriber
 		self.vel_sub = self.create_subscription(Twist, 'cmd_vel', self.vel_callback, 1)
@@ -38,14 +39,17 @@ class Robot(Node):
 		self.last_time = self.get_clock().now()
 
 		# Odometry
-		# self.tick_per_rev = 2800
 		self.robot_pose	= Pose2D()						# x, y, theta
 		self.dx = 0.0
 		self.dy = 0.0
 		self.dtheta = 0.0
-		m1, m2, m3, m4 = self.rover.get_motor_encoder()
-		self.left_tick = (m1 + m2) / 2
-		self.right_tick = (m3 + m4) / 2
+
+		self.last_encoder_m1 = 0
+		self.last_encoder_m2 = 0
+		self.last_encoder_m3 = 0
+		self.last_encoder_m4 = 0
+		self.get_delta_encoder()
+
 		self.odom_pub = self.create_publisher(Odometry, "odom", 10)
 
 		# TF
@@ -102,6 +106,42 @@ class Robot(Node):
 			self.imu_pub.publish(imu)
 			self.mag_pub.publish(mag)
 
+	'''
+		m1: front Left Wheel
+		m2: Rear Left Wheel
+		m3: front Right Wheel
+		m4: Rear Right Wheel
+	'''
+	def get_delta_encoder(self):
+		m1, m2, m3, m4 = self.rover.get_motor_encoder()
+		# print("m1: {}, m2: {}, m3: {}, m4: {}".format(m1, m2, m3, m4))
+		if self.last_encoder_m1 == 0:
+			self.last_encoder_m1 = m1
+		if self.last_encoder_m2 == 0:
+			self.last_encoder_m2 = m2
+		if self.last_encoder_m3 == 0:
+			self.last_encoder_m3 = m3
+		if self.last_encoder_m4 == 0:
+			self.last_encoder_m4 = m4
+
+		delta_encoder_m1 = m1 - self.last_encoder_m1
+		delta_encoder_m2 = m2 - self.last_encoder_m2
+		delta_encoder_m3 = m3 - self.last_encoder_m3
+		delta_encoder_m4 = m4 - self.last_encoder_m4
+
+		offset_m1 = delta_encoder_m1 if abs(delta_encoder_m1) < 24000 else 0
+		offset_m2 = delta_encoder_m2 if abs(delta_encoder_m2) < 24000 else 0
+		offset_m3 = delta_encoder_m3 if abs(delta_encoder_m3) < 24000 else 0
+		offset_m4 = delta_encoder_m4 if abs(delta_encoder_m4) < 24000 else 0
+		# print("m1: {}, m2: {}, m3: {}, m4: {}".format(offset_m1, offset_m2, offset_m3, offset_m4))
+
+		self.last_encoder_m1 = m1
+		self.last_encoder_m2 = m2
+		self.last_encoder_m3 = m3
+		self.last_encoder_m4 = m4
+
+		return offset_m1, offset_m2, offset_m3, offset_m4
+
 	def send_odometry_data(self):
 		ts = self.get_clock().now()
 		dt = ts - self.last_time		# หน่วยจะเป็น nano second
@@ -135,30 +175,35 @@ class Robot(Node):
 		# 	self.dtheta = (DR - DL) / L						# มาจากสมการ kinematics ของ diff drive
 
 		## ???
-		m1, m2, m3, m4 = self.rover.get_motor_encoder()
-		DL = self.DPT * ( 0.5*(m1 + m2) - self.left_tick )
-		DR = self.DPT * ( 0.5*(m3 + m4) - self.right_tick )
-		# print("DL:{}, DR:{}".format(DL, DR))
+		offset_m1, offset_m2, offset_m3, offset_m4 = self.get_delta_encoder()
 
-		# update
-		self.left_tick = (m1 + m2) / 2
-		self.right_tick = (m3 + m4) / 2
+		# print("m1: {}, m2: {}, m3: {}, m4: {}".format(offset_m1, offset_m2, offset_m3, offset_m4 ))
+		front_left_distance  = self.DPT * offset_m1
+		rear_left_distance   = self.DPT * offset_m2
+		front_right_distance = self.DPT * offset_m3
+		rear_right_distance   = self.DPT * offset_m4
+		# print("m1:{}, m2:{}, m3:{}, m4:{}".format(front_left_distance, rear_left_distance, front_right_distance, rear_right_distance ))
 
-		DC = (DL + DR) * 0.5							# DC: Distance Center (เทียบตัวหุ่นเอง)
-		self.dx = DC*math.cos(prev_robot_pose.theta)	# ตัว theta จะเป็นมุม yaw
-		self.dy = DC*math.sin(prev_robot_pose.theta)	#
-		self.dtheta = (DR - DL) / self.wheelbase		# มาจากสมการ kinematics ของ diff drive
+		self.dx = (front_left_distance + rear_left_distance + front_right_distance + rear_right_distance) / 4
+		self.dy = (- front_left_distance + rear_left_distance + front_right_distance - rear_right_distance) / 4
+		self.dtheta = (- front_left_distance - rear_left_distance + front_right_distance + rear_right_distance) / (2 * (self.wheel_separation + self.wheel_separation_length) )
+		# print("x: {}, y: {}, theta: {}".format(self.dx, self.dy, self.dtheta))
 
 		new_robot_pose = Pose2D()
-		new_robot_pose.x = prev_robot_pose.x + self.dx
-		new_robot_pose.y = prev_robot_pose.y + self.dy
-		new_robot_pose.theta = prev_robot_pose.theta + self.dtheta
+		new_robot_pose.x = prev_robot_pose.x + (self.dx * math.cos(prev_robot_pose.theta) - self.dx * math.sin(prev_robot_pose.theta))
+		new_robot_pose.y = prev_robot_pose.y + (self.dy * math.cos(prev_robot_pose.theta) + self.dy * math.sin(prev_robot_pose.theta))
+		new_robot_pose.theta = (prev_robot_pose.theta + self.dtheta) % (2 * 3.14)
+		print("x: {}, y: {}, theta: {}".format(new_robot_pose.x, new_robot_pose.y, new_robot_pose.theta ))
 
 		self.robot_pose.x = new_robot_pose.x
 		self.robot_pose.y = new_robot_pose.y
 		self.robot_pose.theta = new_robot_pose.theta
 
-		# 	# publish odometry data
+		# self.pose.xVel = deltaXTravel / deltaTime if deltaTime > 0 else 0.
+        # self.pose.yVel = deltaYTravel / deltaTime if deltaTime > 0 else 0.
+        # self.pose.thetaVel = deltaTheta / deltaTime if deltaTime > 0 else 0.
+
+		#	publish odometry data
 		odom = Odometry()
 		odom.header.stamp = self.get_clock().now().to_msg()
 		odom.header.frame_id = "odom"							# frame แม่
