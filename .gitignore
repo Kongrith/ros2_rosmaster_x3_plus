@@ -1,9 +1,0 @@
-/build
-/install
-/log
-
-test*
-*.pyc
-.gitignore
-
-*/__pycache__

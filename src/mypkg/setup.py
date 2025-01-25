@@ -15,8 +15,8 @@ setup(
 
 		# เพิ่มตรงนี้ สำหรับการเพิ่ม launch file
 		(os.path.join('share', package_name, "mypkg"), glob("../launch/*.launch.py")),
-		(os.path.join('share', package_name, "config"), glob("../config/*.yaml")),
 		(os.path.join('share', package_name, "launch"), glob("launch/*.launch.py")),
+		(os.path.join('share', package_name, "config"), glob("../config/*.yaml")),
 		(os.path.join('share', package_name, "config"), glob("../config/*.lua")),
 		(os.path.join('share', package_name, "maps"), glob("../maps/*.yaml")),
 		(os.path.join('share', package_name, "maps"), glob("../maps/*.pgm")),
@@ -42,6 +42,7 @@ setup(
 			# "turtle_service_server = mypkg.turtle_service_server:main",
 			# "turtle_service_client = mypkg.turtle_service_client:main",
 			"robot_core = mypkg.robot_core:main",
+			"robot_run = mypkg.robot_mecanum:main",
         ],
     },
 )

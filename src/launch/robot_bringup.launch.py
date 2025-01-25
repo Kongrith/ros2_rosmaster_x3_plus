@@ -11,17 +11,17 @@ def generate_launch_description():
 		# 	arguments=['serial', '--dev', '/dev/ttyACM0'],
 		# 	output='screen'
 		# ),
+		# Node(
+		# 	package="mypkg",
+		# 	executable="robot_core",
+		# 	name="robot_core",
+		# 	# arguments=['serial', '--dev', '/dev/ttyACM0'],
+		# 	output='screen',
+		# ),
 		Node(
 			package="mypkg",
-			executable="robot_core",
-			name="robot_core",
-			# arguments=['serial', '--dev', '/dev/ttyACM0'],
-			output='screen',
-		),
-		Node(
-			package="mypkg",
-			executable="robot_core",
-			name="robot_core",
+			executable="robot_run",
+			name="robot_run",
 			# arguments=['serial', '--dev', '/dev/ttyACM0'],
 			output='screen',
 		),
