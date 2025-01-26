@@ -19,10 +19,10 @@ class Robot(Node):
 		self.rover.create_receive_threading()
 
 		# robot parameters
-		self.wheel_radius = 0.251327
-		self.wheel_separation = 0.20				# Distance between the two wheels on the same axis (meters).
-		self.wheel_separation_length = 0.21			# Distance between the front and rear axis (meters).
-		self.wheelbase = 0.25
+		self.wheel_radius = 0.04 					# 0.251327
+		self.wheel_separation = 0.2082				# Distance between the two wheels on the same axis (meters).
+		self.wheel_separation_length = 0.22			# Distance between the front and rear axis (meters).
+		# self.wheelbase = 0.25
 		self.PPR = 2464												# PPR: Pulse per Revolution
 		self.DPT = (2 * math.pi * self.wheel_radius) / self.PPR  	# DPT: Distance Per Tick (m/tick)
 
@@ -190,10 +190,10 @@ class Robot(Node):
 		# print("x: {}, y: {}, theta: {}".format(self.dx, self.dy, self.dtheta))
 
 		new_robot_pose = Pose2D()
-		new_robot_pose.x = prev_robot_pose.x + (self.dx * math.cos(prev_robot_pose.theta) - self.dx * math.sin(prev_robot_pose.theta))
-		new_robot_pose.y = prev_robot_pose.y + (self.dy * math.cos(prev_robot_pose.theta) + self.dy * math.sin(prev_robot_pose.theta))
+		new_robot_pose.x = prev_robot_pose.x + (self.dx * math.cos(prev_robot_pose.theta) - self.dy * math.sin(prev_robot_pose.theta))
+		new_robot_pose.y = prev_robot_pose.y + (self.dy * math.cos(prev_robot_pose.theta) + self.dx * math.sin(prev_robot_pose.theta))
 		new_robot_pose.theta = (prev_robot_pose.theta + self.dtheta) % (2 * 3.14)
-		print("x: {}, y: {}, theta: {}".format(new_robot_pose.x, new_robot_pose.y, new_robot_pose.theta ))
+		# print("x: {}, y: {}, theta: {}".format(new_robot_pose.x, new_robot_pose.y, new_robot_pose.theta ))
 
 		self.robot_pose.x = new_robot_pose.x
 		self.robot_pose.y = new_robot_pose.y
