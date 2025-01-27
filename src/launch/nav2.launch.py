@@ -13,17 +13,17 @@ import os
 def generate_launch_description():
 	map_dir = LaunchConfiguration(
 		'map',
-		default = PathJoinSubstitution([FindPackageShare('mypkg'),'maps','nav2course.yaml'])
+		default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','testmap.yaml'])
 		)
 
 	param_dir = LaunchConfiguration(
 		'params_file',
 		default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params.yaml'])
 	)
+
+	# มาพร้อมกับ nav2
 	nav2_launch_file_dir = PathJoinSubstitution([FindPackageShare('nav2_bringup'),'launch'])
-
 	rviz_config_dir = PathJoinSubstitution([FindPackageShare('nav2_bringup'),'rviz','nav2_default_view.rviz'])
-
 	use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
 	return LaunchDescription([

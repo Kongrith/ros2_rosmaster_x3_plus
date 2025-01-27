@@ -18,8 +18,8 @@ setup(
 		(os.path.join('share', package_name, "launch"), glob("launch/*.launch.py")),
 		(os.path.join('share', package_name, "config"), glob("../config/*.yaml")),
 		(os.path.join('share', package_name, "config"), glob("../config/*.lua")),
-		(os.path.join('share', package_name, "maps"), glob("../maps/*.yaml")),
-		(os.path.join('share', package_name, "maps"), glob("../maps/*.pgm")),
+		(os.path.join('share', package_name, "map"), glob("../map/*.yaml")),
+		(os.path.join('share', package_name, "map"), glob("../map/*.pgm")),
 
 		# Include all launch files.
 		# (os.path.join('share', package_name, 'launch'), glob(os.path.join(os.getcwd(), '*.launch.py'))),

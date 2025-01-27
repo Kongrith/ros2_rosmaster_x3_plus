@@ -12,7 +12,6 @@ def generate_launch_description():
             arguments=[
             	'-configuration_directory', get_package_share_directory('mypkg')+'/config',
             	'-configuration_basename', 'cartographer.lua'
-
             ],
         ),
         Node(
