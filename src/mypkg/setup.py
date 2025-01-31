@@ -43,6 +43,7 @@ setup(
 			# "turtle_service_client = mypkg.turtle_service_client:main",
 			"robot_core = mypkg.robot_core:main",
 			"robot_run = mypkg.robot_mecanum:main",
+			"nav2_cmd = mypkg.navigation2_command:main",
         ],
     },
 )
