@@ -139,7 +139,7 @@ class Rosmaster(object):
     # 根据数据帧的类型来做出对应的解析
     # According to the type of data frame to make the corresponding parsing
     def __parse_data(self, ext_type, ext_data):
-        print("parse_data:", ext_data, ext_type)
+        # print("parse_data:", ext_data, ext_type)
         if ext_type == self.FUNC_REPORT_SPEED:
             # print(ext_data)
             self.__vx = int(struct.unpack('h', bytearray(ext_data[0:2]))[0]) / 1000.0
@@ -167,20 +167,20 @@ class Rosmaster(object):
         # 解析ICM20948原始陀螺仪、加速度计、磁力计数据
         # (ICM20948)the original gyroscope, accelerometer, magnetometer data
         elif ext_type == self.FUNC_REPORT_ICM_RAW:
-            gyro_ratio = 1 / 1000.0
-            self.__gx = struct.unpack('h', bytearray(ext_data[0:2]))[0]*gyro_ratio
-            self.__gy = struct.unpack('h', bytearray(ext_data[2:4]))[0]*gyro_ratio
-            self.__gz = struct.unpack('h', bytearray(ext_data[4:6]))[0]*gyro_ratio
+            gyro_ratio = 16.4
+            self.__gx = int(struct.unpack('h', bytearray(ext_data[0:2]))[0]) / gyro_ratio
+            self.__gy = int(struct.unpack('h', bytearray(ext_data[2:4]))[0]) / gyro_ratio
+            self.__gz = int(struct.unpack('h', bytearray(ext_data[4:6]))[0]) / gyro_ratio
 
-            accel_ratio = 1 / 1000.0
-            self.__ax = struct.unpack('h', bytearray(ext_data[6:8]))[0]*accel_ratio
-            self.__ay = struct.unpack('h', bytearray(ext_data[8:10]))[0]*accel_ratio
-            self.__az = struct.unpack('h', bytearray(ext_data[10:12]))[0]*accel_ratio
+            accel_ratio = 2048
+            self.__ax = struct.unpack('h', bytearray(ext_data[6:8]))[0] / accel_ratio
+            self.__ay = struct.unpack('h', bytearray(ext_data[8:10]))[0] / accel_ratio
+            self.__az = struct.unpack('h', bytearray(ext_data[10:12]))[0] / accel_ratio
 
-            mag_ratio = 1 / 1000.0
-            self.__mx = struct.unpack('h', bytearray(ext_data[12:14]))[0]*mag_ratio
-            self.__my = struct.unpack('h', bytearray(ext_data[14:16]))[0]*mag_ratio
-            self.__mz = struct.unpack('h', bytearray(ext_data[16:18]))[0]*mag_ratio
+            mag_ratio = 6.67
+            self.__mx = struct.unpack('h', bytearray(ext_data[12:14]))[0] / mag_ratio
+            self.__my = struct.unpack('h', bytearray(ext_data[14:16]))[0] / mag_ratio
+            self.__mz = struct.unpack('h', bytearray(ext_data[16:18]))[0] / mag_ratio
         # 解析板子的姿态角
         # the attitude Angle of the board
         elif ext_type == self.FUNC_REPORT_IMU_ATT:

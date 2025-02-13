@@ -10,12 +10,12 @@ import math
 
 # from yahboom
 from Rosmaster_Lib.Rosmaster import Rosmaster
-from sensor_msgs.msg import Imu,MagneticField, JointState
+from sensor_msgs.msg import Imu, MagneticField, JointState
 
 class Robot(Node):
 	def __init__(self):
 		super().__init__('robot_core_node')
-		self.rover = Rosmaster(car_type = 2, com = "/dev/USBserial", delay = 0.002, debug = False)
+		self.rover = Rosmaster(car_type = 2, com = "/dev/USBserial", delay = 0.5, debug = False)
 		self.rover.create_receive_threading()
 
 		# robot parameters
@@ -28,11 +28,13 @@ class Robot(Node):
 
 		# create subcriber
 		self.vel_sub = self.create_subscription(Twist, 'cmd_vel', self.vel_callback, 1)
+		# self.raw_imu_sub = self.create_subscription(Imu, 'imu/raw', self.raw_imu_callback, 10)
 
 		# create publisher
 		self.vel_pub = self.create_publisher(Twist,"vel_raw", 50)
-		self.imu_pub = self.create_publisher(Imu, "/imu/data_raw", 100)
-		self.mag_pub = self.create_publisher(MagneticField, "/imu/mag", 100)
+		self.imu_pub = self.create_publisher(Imu, "imu/data", 100)
+		# self.imu_pub = self.create_publisher(Imu, "/imu/data_raw", 100)
+		self.mag_pub = self.create_publisher(MagneticField, "imu/mag", 100)
 
 		# related time
 		self.timer = self.create_timer(0.1, self.timer_callback)
@@ -73,6 +75,13 @@ class Robot(Node):
 		self.send_imu_data()
 		self.send_odometry_data()
 
+	# def raw_imu_callback(self, msg_in):
+	# 		imu = Imu()
+
+	# 		imu = msg_in
+	# 		imu.header.frame_id = "imu_link"
+	# 		imu.header.stamp = self.get_clock().now().to_msg()
+
 	def send_imu_data(self):
 			imu = Imu()
 			mag = MagneticField()
@@ -86,26 +95,33 @@ class Robot(Node):
 			mz = mz * 1.0
 
 			# IMU
+			gyro_ratio = 16.4
+			accel_ratio = 2048
 			imu.header.stamp = self.get_clock().now().to_msg()
 			imu.header.frame_id = "imu_link"
-			imu.linear_acceleration.x = ax*1.0
-			imu.linear_acceleration.y = ay*1.0
-			imu.linear_acceleration.z = az*1.0
-			imu.angular_velocity.x = gx*1.0
-			imu.angular_velocity.y = gy*1.0
-			imu.angular_velocity.z = gz*1.0
+			imu.linear_acceleration.x = ax / accel_ratio
+			imu.linear_acceleration.y = ay / accel_ratio
+			imu.linear_acceleration.z = az / accel_ratio
+			imu.angular_velocity.x = gx / gyro_ratio
+			imu.angular_velocity.y = gy / gyro_ratio
+			imu.angular_velocity.z = gz / gyro_ratio
+
+			self.imu_pub.publish(imu)				# Publish IMU
 
 			# Magnetic
+			mag_ratio = 6.67
 			mag.header.stamp = self.get_clock().now().to_msg()
 			mag.header.frame_id = "mag_link"
-			mag.magnetic_field.x = mx*1.0
-			mag.magnetic_field.y = my*1.0
-			mag.magnetic_field.z = mz*1.0
+			mag.magnetic_field.x = mx / mag_ratio
+			mag.magnetic_field.y = my / mag_ratio
+			mag.magnetic_field.z = mz / mag_ratio
 
-			# Publish IMU & Magnetics
-			self.imu_pub.publish(imu)
-			self.mag_pub.publish(mag)
+			self.mag_pub.publish(mag)				# Publish Magnetics
+			# self.get_logger().info("ax:{} ay:{} az:{}".format(ax, ay, az))
+			# self.get_logger().info("gx:{:.4f} gy:{:.4f} gz:{:.4f}".format(imu.angular_velocity.x, imu.angular_velocity.y, imu.angular_velocity.z))
 
+			# self.get_logger().info("ax:{:.6f} ay:{:.6f} az:{:.6f}".format(imu.linear_acceleration.x, imu.linear_acceleration.y, imu.linear_acceleration.z))
+			# self.get_logger().info("gx:{:.6f} gy:{:.6f} gz:{:.6f}".format(imu.angular_velocity.x, imu.angular_velocity.y, imu.angular_velocity.z))
 	'''
 		m1: front Left Wheel
 		m2: Rear Left Wheel
@@ -159,6 +175,7 @@ class Robot(Node):
 
 		# Publish Velocity (x: forward/backward, y:translate left/rigth, z:ccw/cw)
 		self.vel_pub.publish(twist)
+		# self.get_logger().info("Vx: {}, Vy: {}, angular: {}".format(vx, vy, angular))
 
 		prev_robot_pose = self.robot_pose				# Pose2D
 		# 	R = self.wheel_radius
@@ -211,6 +228,13 @@ class Robot(Node):
 		odom.pose.pose.position.x = self.robot_pose.x
 		odom.pose.pose.position.y = self.robot_pose.y
 		odom.pose.pose.position.z = 0.0							# assume ว่าไม่ได้เปลี่ยนระดับ
+		#
+		odom.twist.twist.linear.x = vx *1.0
+		odom.twist.twist.linear.y = vy *1.0
+		# odom.twist.twist.linear.z = 0
+		# odom.twist.twist.angular.x = angular*1.0
+		# odom.twist.twist.angular.y = angular*1.0
+		odom.twist.twist.angular.z = angular*1.0
 
 		quat = self.quaternion_from_euler(0, 0, self.robot_pose.theta)	# เพราะการเคลื่อนที่แบบ 2 มิติ ค่า roll pitch เป็น ศูนย์
 		odom.pose.pose.orientation.w = quat[0]

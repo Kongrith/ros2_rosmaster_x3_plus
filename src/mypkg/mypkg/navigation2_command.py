@@ -18,7 +18,7 @@ class navRobot(Node):
 		# set initial pose
 		self.ip = PoseStamped()
 		self.set_initial_pose()
-
+		self.nav.waitUntilNav2Active()
 		self.wp = []
 
 	def set_initial_pose(self):
@@ -35,6 +35,7 @@ class navRobot(Node):
 		self.ip.pose.orientation.z = q[3]
 
 		self.nav.setInitialPose(self.ip)
+
 
 	def set_point(self, x, y, theta):
 		goal_pose = PoseStamped()
@@ -57,9 +58,18 @@ class navRobot(Node):
 		self.nav.goToPose(target)
 
 	def waypoint(self):
+		p = self.set_point(-0.5, 0.0, 0.0)		# ตามแนวแกน x, y, theta ของ map frame
+		self.wp.append(p)
 		p = self.set_point(0.5, 0.0, 0.0)		# ตามแนวแกน x, y, theta ของ map frame
 		self.wp.append(p)
+		p = self.set_point(1.0, 0.0, 0.0)		# ตามแนวแกน x, y, theta ของ map frame
+		self.wp.append(p)
 		self.nav.followWaypoints(self.wp)
+
+		# while not self.nav.isNavComplete():
+		# 	print(self.nav.isNavComplete())
+		# 	feedback = self.nav.getFeedback()
+		# 	print(feedback)
 
 	def quaternion_from_euler(self, roll, pitch, yaw):
 		cy = math.cos(yaw*0.5)
@@ -80,8 +90,8 @@ def main():
 	nr = navRobot()
 
 	# x, y, theta
-	# nr.waypoint()
-	nr.goto( 0.5, 0.0, 0.0)
+	# nr.goto( 0.5, 0.0, 0.0)
+	nr.waypoint()
 
 	# เราจะไม่ spin เพราะจะให้ทำงานครั้งเดียว
 	nr.destroy_node()

@@ -41,9 +41,10 @@ setup(
 			# "first_param = mypkg.first_param:main",
 			# "turtle_service_server = mypkg.turtle_service_server:main",
 			# "turtle_service_client = mypkg.turtle_service_client:main",
-			"robot_core = mypkg.robot_core:main",
+			# "robot_core = mypkg.robot_core:main",
 			"robot_run = mypkg.robot_mecanum:main",
 			"nav2_cmd = mypkg.navigation2_command:main",
+			# "imu_publisher = mypkg.imu_publisher:main",
         ],
     },
 )

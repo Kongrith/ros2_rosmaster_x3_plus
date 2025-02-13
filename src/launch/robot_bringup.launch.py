@@ -20,6 +20,7 @@ def generate_launch_description():
 		# 	arguments=['serial', '--dev', '/dev/ttyACM0'],
 		# 	output='screen'
 		# ),
+
 		# Node(
 		# 	package="mypkg",
 		# 	executable="robot_core",
@@ -28,11 +29,27 @@ def generate_launch_description():
 		# 	output='screen',
 		# ),
 
+		# Node(
+		# 	package="mypkg",
+		# 	executable="imu_publisher",
+		# 	name="imu_publisher",
+		# 	output='screen',
+		# ),
+
 		Node(
 			package="mypkg",
 			executable="robot_run",
 			name="robot_run",
 			# arguments=['serial', '--dev', '/dev/ttyACM0'],
+			output='screen',
+		),
+
+		Node(
+			package="tf2_ros",
+			executable="static_transform_publisher",
+			name="imu_tf_publisher",
+			# x y z roll, pitch, yaw, parent_frame, child_frame
+			arguments=['0.1', '0.0', '0.05', '0.0', '0.0', '0.0', '1.0', 'base_link', 'imu_link'],
 			output='screen',
 		),
 
