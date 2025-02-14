@@ -44,7 +44,7 @@ setup(
 			# "robot_core = mypkg.robot_core:main",
 			"robot_run = mypkg.robot_mecanum:main",
 			"nav2_cmd = mypkg.navigation2_command:main",
-			# "imu_publisher = mypkg.imu_publisher:main",
+			"imu_publisher = mypkg.imu_publisher:main",
         ],
     },
 )

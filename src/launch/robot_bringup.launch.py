@@ -8,6 +8,10 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 # launch description
 def generate_launch_description():
 
+	# สำหรับ EKF
+	ekf_config_path = PathJoinSubstitution([FindPackageShare('mypkg'),
+										   'config', 'ekf.yaml'])
+
 	# เอาไว้ต่อ path
 	lidar_launch_path = PathJoinSubstitution([FindPackageShare('ydlidar_ros2_driver'),
 										   'launch', 'ydlidar_launch.py'])
@@ -29,18 +33,18 @@ def generate_launch_description():
 		# 	output='screen',
 		# ),
 
-		# Node(
-		# 	package="mypkg",
-		# 	executable="imu_publisher",
-		# 	name="imu_publisher",
-		# 	output='screen',
-		# ),
-
 		Node(
 			package="mypkg",
 			executable="robot_run",
 			name="robot_run",
 			# arguments=['serial', '--dev', '/dev/ttyACM0'],
+			output='screen',
+		),
+
+		Node(
+			package="mypkg",
+			executable="imu_publisher",
+			name="imu_converter_node",
 			output='screen',
 		),
 
@@ -53,7 +57,16 @@ def generate_launch_description():
 			output='screen',
 		),
 
-		# เพิ่ม launch file ตัวอื่น
+		Node(
+			package="robot_localization",
+			executable="ekf_node",
+			name="ekf_filter_node",
+			arguments=[ ekf_config_path ],
+			output='screen',
+			remappings = [("odometry/filtered", "odom")],
+		),
+
+		# เพิ่ม launch file ตัวอื่นจาก Lidar
 		IncludeLaunchDescription(
 			PythonLaunchDescriptionSource(lidar_launch_path)
 		)

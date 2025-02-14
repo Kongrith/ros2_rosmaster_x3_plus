@@ -32,7 +32,8 @@ class Robot(Node):
 
 		# create publisher
 		self.vel_pub = self.create_publisher(Twist,"vel_raw", 50)
-		self.imu_pub = self.create_publisher(Imu, "imu/data", 100)
+		self.imu_pub = self.create_publisher(Imu, "imu/raw", 100)
+		# self.imu_pub = self.create_publisher(Imu, "imu/data", 100)
 		# self.imu_pub = self.create_publisher(Imu, "/imu/data_raw", 100)
 		self.mag_pub = self.create_publisher(MagneticField, "imu/mag", 100)
 
@@ -52,7 +53,9 @@ class Robot(Node):
 		self.last_encoder_m4 = 0
 		self.get_delta_encoder()
 
-		self.odom_pub = self.create_publisher(Odometry, "odom", 10)
+		# comment line ข้าง่ล่างถ้าใช้ ekf
+		# self.odom_pub = self.create_publisher(Odometry, "odom", 10)
+		self.odom_pub = self.create_publisher(Odometry, "odom/raw", 10)
 
 		# TF
 		self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
@@ -242,6 +245,11 @@ class Robot(Node):
 		odom.pose.pose.orientation.y = quat[2]
 		odom.pose.pose.orientation.z = quat[3]
 
+		## เพิ่ม covariance สำหรับกรณี EKF
+		odom.pose.covariance[0] = 0.001				# x
+		odom.pose.covariance[7]	= 0.001				# y
+		odom.pose.covariance[35] = 0.001			# yaw
+
 		self.odom_pub.publish(odom)
 
 		t = TransformStamped()
@@ -255,8 +263,9 @@ class Robot(Node):
 		t.transform.rotation.x = quat[1]
 		t.transform.rotation.y = quat[2]
 		t.transform.rotation.z = quat[3]
-		self.tf_broadcaster.sendTransform(t)
 
+		## comment line นี้ถ้าต้องการทำ EKF ##
+		# self.tf_broadcaster.sendTransform(t)
 		self.last_time = ts
 
 	def quaternion_from_euler(self, roll, pitch, yaw):
