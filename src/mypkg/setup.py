@@ -45,6 +45,8 @@ setup(
 			"robot_run = mypkg.robot_mecanum:main",
 			"nav2_cmd = mypkg.navigation2_command:main",
 			"imu_publisher = mypkg.imu_publisher:main",
+			"img_publisher = mypkg.image_publisher:main",
+			"img_subscriber = mypkg.image_subscriber:main",
         ],
     },
 )

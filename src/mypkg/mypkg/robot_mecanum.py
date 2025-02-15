@@ -97,18 +97,36 @@ class Robot(Node):
 			my = my * 1.0
 			mz = mz * 1.0
 
+			###
+			# Cal Accel: -0.00732422, 0.00048828, 0.01855469
+			# Cal Gyro: 0.06097561, -0.48780488, 0.30487805
+			ax_cal = -0.00732422
+			ay_cal = 0.0004882
+			az_cal = 0.01855469
+			gx_cal = 0.06097561
+			gy_cal = -0.48780488
+			gz_cal = 0.30487805
+
+			ax -= ax_cal
+			ay -= ay_cal
+			az -= az_cal
+			gx -= gx_cal
+			gy -= gy_cal
+			gz -= gz_cal
+
 			# IMU
 			gyro_ratio = 16.4
 			accel_ratio = 2048
-			imu.header.stamp = self.get_clock().now().to_msg()
-			imu.header.frame_id = "imu_link"
-			imu.linear_acceleration.x = ax / accel_ratio
-			imu.linear_acceleration.y = ay / accel_ratio
-			imu.linear_acceleration.z = az / accel_ratio
-			imu.angular_velocity.x = gx / gyro_ratio
-			imu.angular_velocity.y = gy / gyro_ratio
-			imu.angular_velocity.z = gz / gyro_ratio
+			# imu.header.stamp = self.get_clock().now().to_msg()
+			# imu.header.frame_id = "imu_link"
+			imu.linear_acceleration.x = ax / accel_ratio * 9.81
+			imu.linear_acceleration.y = ay / accel_ratio * 9.81
+			imu.linear_acceleration.z = az / accel_ratio * 9.81
+			imu.angular_velocity.x = gx / gyro_ratio * 0.01745
+			imu.angular_velocity.y = gy / gyro_ratio * 0.01745
+			imu.angular_velocity.z = gz / gyro_ratio * 0.01745
 
+			# self.get_logger().info("ax:{:.4f} ay:{:.4f} az:{:.4f}".format(ax/accel_ratio, ay/accel_ratio, az/accel_ratio))
 			self.imu_pub.publish(imu)				# Publish IMU
 
 			# Magnetic
@@ -252,17 +270,17 @@ class Robot(Node):
 
 		self.odom_pub.publish(odom)
 
-		t = TransformStamped()
-		t.header.stamp = self.get_clock().now().to_msg()
-		t.header.frame_id = "odom"
-		t.child_frame_id = "base_link"
-		t.transform.translation.x = self.robot_pose.x
-		t.transform.translation.y = self.robot_pose.y
-		t.transform.translation.z = 0.0
-		t.transform.rotation.w = quat[0]
-		t.transform.rotation.x = quat[1]
-		t.transform.rotation.y = quat[2]
-		t.transform.rotation.z = quat[3]
+		# t = TransformStamped()
+		# t.header.stamp = self.get_clock().now().to_msg()
+		# t.header.frame_id = "odom"
+		# t.child_frame_id = "base_link"
+		# t.transform.translation.x = self.robot_pose.x
+		# t.transform.translation.y = self.robot_pose.y
+		# t.transform.translation.z = 0.0
+		# t.transform.rotation.w = quat[0]
+		# t.transform.rotation.x = quat[1]
+		# t.transform.rotation.y = quat[2]
+		# t.transform.rotation.z = quat[3]
 
 		## comment line นี้ถ้าต้องการทำ EKF ##
 		# self.tf_broadcaster.sendTransform(t)

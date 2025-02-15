@@ -41,6 +41,11 @@ def generate_launch_description():
 			output='screen',
 		),
 
+		# เพิ่ม launch file ตัวอื่นจาก Lidar
+		IncludeLaunchDescription(
+			PythonLaunchDescriptionSource(lidar_launch_path)
+		),
+
 		Node(
 			package="mypkg",
 			executable="imu_publisher",
@@ -61,15 +66,10 @@ def generate_launch_description():
 			package="robot_localization",
 			executable="ekf_node",
 			name="ekf_filter_node",
-			arguments=[ ekf_config_path ],
+			parameters=[ ekf_config_path ],
 			output='screen',
 			remappings = [("odometry/filtered", "odom")],
 		),
-
-		# เพิ่ม launch file ตัวอื่นจาก Lidar
-		IncludeLaunchDescription(
-			PythonLaunchDescriptionSource(lidar_launch_path)
-		)
 	])
 
 
