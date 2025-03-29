@@ -13,12 +13,14 @@ import os
 def generate_launch_description():
 	map_dir = LaunchConfiguration(
 		'map',
-		default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','testmap.yaml'])
+		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','testmap5.yaml'])
+		default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','mapone.yaml'])
 		)
 
 	param_dir = LaunchConfiguration(
 		'params_file',
-		default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params.yaml'])
+		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params.yaml'])
+		default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params_straightline.yaml'])
 	)
 
 	# มาพร้อมกับ nav2
