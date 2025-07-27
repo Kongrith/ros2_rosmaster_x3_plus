@@ -1,0 +1,77 @@
+[0.023s] Invoking command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver -DCMAKE_INSTALL_PREFIX=/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver
+[0.050s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.347s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.373s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.448s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.453s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.463s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.482s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.505s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.564s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.567s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.776s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.866s] -- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.917s] -- Found visualization_msgs: 4.8.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[0.951s] -- Found std_srvs: 4.8.0 (/opt/ros/humble/share/std_srvs/cmake)
+[0.979s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.135s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.157s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.158s] -- Configured cppcheck include dirs: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/src
+[1.158s] -- Configured cppcheck exclude dirs and/or files: 
+[1.180s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.180s] -- Configured cpplint exclude dirs and/or files: 
+[1.184s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.190s] -- Added test 'lint_cmake' to check CMake code style
+[1.193s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.216s] -- Added test 'uncrustify' to check C / C++ code style
+[1.216s] -- Configured uncrustify additional arguments: 
+[1.219s] -- Added test 'xmllint' to check XML markup files
+[1.221s] -- Configuring done
+[1.250s] -- Generating done
+[1.262s] -- Build files have been written to: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver
+[1.284s] Invoked command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver -DCMAKE_INSTALL_PREFIX=/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver
+[1.289s] Invoking command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake --build /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver -- -j6 -l6
+[1.381s] [35m[1mConsolidate compiler generated dependencies of target ydlidar_ros2_driver_client[0m
+[1.381s] [35m[1mConsolidate compiler generated dependencies of target ydlidar_ros2_driver_node[0m
+[1.424s] [ 75%] Built target ydlidar_ros2_driver_node
+[1.424s] [100%] Built target ydlidar_ros2_driver_client
+[1.452s] Invoked command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake --build /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver -- -j6 -l6
+[1.477s] Invoking command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake --install /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver
+[1.492s] -- Install configuration: ""
+[1.493s] -- Execute custom install script
+[1.494s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/lib/ydlidar_ros2_driver/ydlidar_ros2_driver_node
+[1.494s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/lib/ydlidar_ros2_driver/ydlidar_ros2_driver_client
+[1.495s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/launch/ydlidar.py
+[1.495s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/launch/ydlidar_launch.py
+[1.495s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/launch/ydlidar_launch_view.py
+[1.496s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/G1.yaml
+[1.496s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/G2.yaml
+[1.496s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/G6.yaml
+[1.496s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/GS2.yaml
+[1.496s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/TEA.yaml
+[1.497s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/TG.yaml
+[1.497s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/TminiPro.yaml
+[1.497s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/X2.yaml
+[1.497s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/X4 copy.yaml
+[1.497s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/X4-Pro.yaml
+[1.498s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/X4.yaml
+[1.498s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/ydlidar copy.yaml
+[1.498s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/params/ydlidar.yaml
+[1.498s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/startup/initenv.sh
+[1.499s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/config/ydlidar.rviz
+[1.499s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ament_index/resource_index/package_run_dependencies/ydlidar_ros2_driver
+[1.499s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ament_index/resource_index/parent_prefix_path/ydlidar_ros2_driver
+[1.500s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/environment/ament_prefix_path.sh
+[1.500s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/environment/ament_prefix_path.dsv
+[1.500s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/environment/path.sh
+[1.501s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/environment/path.dsv
+[1.501s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/local_setup.bash
+[1.501s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/local_setup.sh
+[1.501s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/local_setup.zsh
+[1.502s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/local_setup.dsv
+[1.502s] -- Symlinking: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/package.dsv
+[1.519s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ament_index/resource_index/packages/ydlidar_ros2_driver
+[1.520s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/cmake/ydlidar_ros2_driverConfig.cmake
+[1.520s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/cmake/ydlidar_ros2_driverConfig-version.cmake
+[1.520s] -- Up-to-date symlink: /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/install/ydlidar_ros2_driver/share/ydlidar_ros2_driver/package.xml
+[1.525s] Invoked command in '/home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cartoon/rosmaster_ws/install/robot_nav_tool:/home/cartoon/rosmaster_ws/install/robot_data_tool:/home/cartoon/rosmaster_ws/install/mypkg:/home/cartoon/ros2_tools/install/robot_nav_tool:/home/cartoon/ros2_tools/install/robot_data_tool:/opt/ros/humble /usr/bin/cmake --install /home/cartoon/rosmaster_ws/src/ydlidar_ros2_driver/build/ydlidar_ros2_driver

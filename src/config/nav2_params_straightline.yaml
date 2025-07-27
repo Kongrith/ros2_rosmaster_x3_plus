@@ -124,8 +124,8 @@ controller_server:
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.10
-      yaw_goal_tolerance: 0.50  # 0.50 radians (about 28.6 degrees)
+      xy_goal_tolerance: 0.15
+      yaw_goal_tolerance: 0.0872664626  # 0.50 radians (about 28.6 degrees)
 
     # DWB parameters
     FollowPath:
@@ -154,7 +154,7 @@ controller_server:
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.1
+      xy_goal_tolerance: 0.15
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True
@@ -191,7 +191,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 1.0
-        inflation_radius: 0.25
+        inflation_radius: 0.10
         # inflation_radius: 0.55
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
@@ -285,7 +285,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        inflation_radius: 0.30
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:
@@ -297,7 +297,7 @@ global_costmap:
 map_server:
   ros__parameters:
     use_sim_time: False
-    yaml_filename: "mapone.yaml"
+    yaml_filename: "testmap.yaml"
 
 map_saver:
   ros__parameters:

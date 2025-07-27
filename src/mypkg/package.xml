@@ -3,8 +3,8 @@
 <package format="3">
   <name>mypkg</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="cartoon@todo.todo">cartoon</maintainer>
+  <description>ROS Master Plus</description>
+  <maintainer email="kongrithkomasatid@gmail.com">cartoon</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>std_msgs</depend>

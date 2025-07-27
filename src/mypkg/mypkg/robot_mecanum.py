@@ -100,12 +100,19 @@ class Robot(Node):
 			###
 			# Cal Accel: -0.00732422, 0.00048828, 0.01855469
 			# Cal Gyro: 0.06097561, -0.48780488, 0.30487805
-			ax_cal = -0.00732422
-			ay_cal = 0.0004882
-			az_cal = 0.01855469
-			gx_cal = 0.06097561
-			gy_cal = -0.48780488
-			gz_cal = 0.30487805
+			# ax_cal = -0.00732422
+			# ay_cal = 0.0004882
+			# az_cal = 0.01855469
+			# gx_cal = 0.06097561
+			# gy_cal = -0.48780488
+			# gz_cal = 0.30487805
+
+			ax_cal = 0
+			ay_cal = 0
+			az_cal = 0
+			gx_cal = 0
+			gy_cal = 0
+			gz_cal = 0
 
 			ax -= ax_cal
 			ay -= ay_cal
@@ -231,6 +238,7 @@ class Robot(Node):
 		new_robot_pose.x = prev_robot_pose.x + (self.dx * math.cos(prev_robot_pose.theta) - self.dy * math.sin(prev_robot_pose.theta))
 		new_robot_pose.y = prev_robot_pose.y + (self.dy * math.cos(prev_robot_pose.theta) + self.dx * math.sin(prev_robot_pose.theta))
 		new_robot_pose.theta = (prev_robot_pose.theta + self.dtheta) % (2 * math.pi)
+		# new_robot_pose.theta = (prev_robot_pose.theta + self.dtheta)
 		# print("x: {}, y: {}, theta: {}".format(new_robot_pose.x, new_robot_pose.y, new_robot_pose.theta ))
 
 		self.robot_pose.x = new_robot_pose.x

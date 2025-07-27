@@ -11,7 +11,8 @@ def generate_launch_description():
             package='cartographer_ros', executable='cartographer_node', output='screen',
             arguments=[
             	'-configuration_directory', get_package_share_directory('mypkg')+'/config',
-            	'-configuration_basename', 'cartographer.lua'
+            	# '-configuration_basename', 'cartographer.lua'
+                '-configuration_basename', 'lds_2d.lua'
             ],
         ),
         Node(
