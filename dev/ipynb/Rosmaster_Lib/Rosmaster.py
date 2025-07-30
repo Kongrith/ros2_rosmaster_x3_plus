@@ -14,7 +14,8 @@ class Rosmaster(object):
 
 
     # def __init__(self, car_type=2, com="/dev/ttyAMA0", delay=0.5, debug=False):
-    def __init__(self, car_type=2, com="/dev/ttyAMA0", delay=0.002, debug=False):
+    # Bus 001 Device 012: ID 1a86:7523 QinHeng Electronics CH340 serial converter
+    def __init__(self, car_type=2, com="/dev/ttyUSB0", delay=0.002, debug=False):
         
         # com = "COM30"
         # com="/dev/ttyTHS1"
