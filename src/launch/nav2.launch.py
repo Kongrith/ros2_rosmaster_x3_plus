@@ -14,7 +14,7 @@ def generate_launch_description():
 	map_dir = LaunchConfiguration(
 		'map',
 		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','testmap5.yaml'])
-		default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','square.yaml'])
+		default = PathJoinSubstitution([FindPackageShare('mypkg'),'map','rubbermat.yaml'])
 		)
 
 	param_dir = LaunchConfiguration(
