@@ -1,10 +1,13 @@
-#include "rclcpp/rclcpp.hpp"
+#ifndef DIJKSTRA_PLANNER_HPP
+#define DIJKSTRA_PLANNER_HPP
 
+#include <memory>
+
+#include "rclcpp/rclcpp.hpp"
 #include "nav_msgs/msg/path.hpp"
 #include "nav_msgs/msg/occupancy_grid.hpp"
-#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/pose.hpp"
-
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 
@@ -17,35 +20,38 @@ namespace robot_planner
         int cost;
         std::shared_ptr<GraphNode> prev;
 
-        GraphNode(int in_x, int in_y):x(in_x), y(in_y), cost(0)
-        {
+        GraphNode():GraphNode(0,0) {}
+        GraphNode(int in_x, int in_y):x(in_x), y(in_y), cost(0){}
 
-        }
-
-        GraphNode():GraphNode(0,0)
-        {
-
-        }
-        bool operator>(const GraphNode & other) const
-        {
+        bool operator>(const GraphNode &other) const{
             return cost > other.cost;
         }
-        bool operator==(const GraphNode & other) const
-        {
+
+        bool operator==(const GraphNode & other) const{
             return x == other.x && y == other.y;
         }
 
-        GraphNode operator+(std::pair<int, int> const & other)
-        {
+        GraphNode operator+(std::pair<int, int> const &other){
             GraphNode res(x + other.first, y + other.second);
             return res;
         }
     };
 
-    class DijkstraPlanner: public rclcpp::Node
+    // class DijkstraPlanner : public nav2_core::GlobalPlanner
+    class DijkstraPlanner : public rclcpp::Node
     {
         public:
             DijkstraPlanner();
+
+            //  DijkstraPlanner() = default;
+            // ~DijkstraPlanner() = default;
+
+            // void cleanup() override;
+            // void activate() override;
+            // void deactivate() override;
+
+            // nav_msgs::msg::Path createPlan(const geometry_msgs::msg::PoseStamped &start,
+            //     const geometry_msgs::msg::PoseStamped &goal, std::function<bool()> cancel_checker) override;
 
         private:
             rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr map_sub_;
@@ -63,5 +69,11 @@ namespace robot_planner
             void goalCallback(const geometry_msgs::msg::PoseStamped::SharedPtr pose);
 
             nav_msgs::msg::Path plan(const geometry_msgs::msg::Pose & start, const geometry_msgs::msg::Pose & goal);
+            bool poseOnMap(const GraphNode & node);
+            GraphNode worldToGrid(const geometry_msgs::msg::Pose & pose);
+            geometry_msgs::msg::Pose gridToWorld(const GraphNode & node);
+            unsigned int poseToCell(const GraphNode & node);
     };
-}
+} // namespace robot_planner
+
+#endif // DIJKSTRA_PLANNER_HPP

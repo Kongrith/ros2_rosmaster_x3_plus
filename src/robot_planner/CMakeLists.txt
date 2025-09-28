@@ -15,6 +15,13 @@ find_package(tf2_ros REQUIRED)
 # add header
 include_directories(include)
 
+set(dependencies
+  rclcpp
+  nav_msgs
+  geometry_msgs
+  tf2_ros
+)
+
 # executables
 add_executable(dijkstra_planner src/dijkstra_planner.cpp)
 ament_target_dependencies(dijkstra_planner rclcpp nav_msgs geometry_msgs tf2_ros)
