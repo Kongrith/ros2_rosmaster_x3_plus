@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<robot name="yahboomcar_X3plus">
+   <robot name="yahboomcar_X3plus">
     <link name="base_footprint"/>
     <link name="imu_link"/>
     <link name="base_link">
