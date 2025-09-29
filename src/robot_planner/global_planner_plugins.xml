@@ -1,0 +1,7 @@
+<class_libraries>
+	<library path="dijkstra_planner">
+		<class type="robot_planner::DijkstraPlanner" base_class_type="nav2_core::GlobalPlanner">
+		  <description>Simple Dijkstra Planner.</description>
+		</class>
+	</library>
+</class_libraries>

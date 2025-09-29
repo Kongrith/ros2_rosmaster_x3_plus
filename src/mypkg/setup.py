@@ -47,6 +47,8 @@ setup(
 			"imu_publisher = mypkg.imu_publisher:main",
 			"img_publisher = mypkg.image_publisher:main",
 			"img_subscriber = mypkg.image_subscriber:main",
+            "run2m = mypkg.run2m:main",
+            "turn90 = mypkg.turn90:main",
         ],
     },
 )

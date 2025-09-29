@@ -20,8 +20,8 @@ def generate_launch_description():
 	param_dir = LaunchConfiguration(
 		'params_file',
 		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params.yaml'])
-		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params_straightline.yaml'])
-		default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_shim_controller.yaml'])
+		default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_params_straightline.yaml'])
+		# default = PathJoinSubstitution([FindPackageShare('mypkg'),'config','nav2_shim_controller.yaml'])
 	)
 
 	# มาพร้อมกับ nav2
